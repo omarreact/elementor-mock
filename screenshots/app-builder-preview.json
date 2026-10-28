@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Elementor Studio",
+      "hasCanvas": false,
+      "bodyTextLen": 3360,
+      "bodyTextHash": "05ca3704c864ac6cc347546f381d90582fe334ebb4b7bbc00147493f825ecb53",
+      "bodyTextPrefix": "Elementor Pro Home Theme Builder Publish Elements Pro All Favori",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Elementor Studio",
+      "hasCanvas": false,
+      "bodyTextLen": 2265,
+      "bodyTextHash": "0e1e15ccd8632ba74720bcee3af0816717674c8fa0643068497f914ab0e63ced",
+      "bodyTextPrefix": "Home Publish Elements Pro All Favorites Global Favorites Heading",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}
