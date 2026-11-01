@@ -942,6 +942,8 @@ input[type="color"] {
     top: 3.5rem;
     bottom: 4.25rem;
     width: min(100%, 22rem);
+    /* Keep drawers above the scrim (35) and below the dock (45). */
+    z-index: 40;
     transition: transform 200ms ease;
   }
   .show-callouts .panel-left,

@@ -18,6 +18,15 @@ const TABS = [
   { id: "advanced", label: "Advanced", icon: Settings2 },
 ] as const;
 
+/** Subscribe to the stable patch reference, not a freshly merged node object.
+ * Zustand 5 uses useSyncExternalStore: an object allocated inside the selector
+ * changes the snapshot every read and can trigger React error #185.
+ */
+function useResolvedNode(id: string) {
+  const patch = useEditor((s) => s.patches[id]);
+  return getNode(patch ? { [id]: patch } : {}, id);
+}
+
 export function SettingsPanel() {
   const selected = useEditor((s) => s.selected);
   const inserts = useEditor((s) => s.inserts);
@@ -164,7 +173,7 @@ function ElementSettings({ id }: { id: string }) {
 }
 
 function Content({ id, kind }: { id: string; kind: Kind }) {
-  const node = useEditor((s) => getNode(s.patches, id));
+  const node = useResolvedNode(id);
   const update = useEditor((s) => s.update);
   const fields = useEditor((s) => s.fields);
   const updateField = useEditor((s) => s.updateField);
@@ -245,7 +254,7 @@ function Content({ id, kind }: { id: string; kind: Kind }) {
 }
 
 function Style({ id, kind }: { id: string; kind: Kind }) {
-  const node = useEditor((s) => getNode(s.patches, id));
+  const node = useResolvedNode(id);
   const update = useEditor((s) => s.update);
   const buttonId = linkedButton(id);
   const textual = kind !== "image" && kind !== "container";
@@ -294,7 +303,7 @@ function Style({ id, kind }: { id: string; kind: Kind }) {
 }
 
 function StyleFields({ id }: { id: string }) {
-  const node = useEditor((s) => getNode(s.patches, id));
+  const node = useResolvedNode(id);
   const update = useEditor((s) => s.update);
   return (
     <>
@@ -307,7 +316,7 @@ function StyleFields({ id }: { id: string }) {
 }
 
 function Advanced({ id }: { id: string }) {
-  const node = useEditor((s) => getNode(s.patches, id));
+  const node = useResolvedNode(id);
   const update = useEditor((s) => s.update);
   const globals = useEditor((s) => s.globals);
   const toggleGlobal = useEditor((s) => s.toggleGlobal);
