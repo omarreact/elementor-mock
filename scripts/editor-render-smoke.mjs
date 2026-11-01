@@ -16,6 +16,8 @@ try {
     await page.locator(".shell").waitFor({ state: "visible" });
     await page.locator(".is-live .page-sheet").waitFor({ state: "visible" });
     assert.equal(await page.getByText("Something went wrong", { exact: true }).count(), 0);
+    // The SSR HTML can appear before React attaches its event handlers.
+    await page.waitForTimeout(1200);
 
     if (viewport.width < 600) {
       // Mobile settings are initially hidden behind the bottom dock.
@@ -24,6 +26,7 @@ try {
     for (const name of ["Style", "Advanced", "Content"]) {
       const tab = page.getByRole("tab", { name, exact: true });
       await tab.click({ timeout: 10000 });
+      console.log(`At ${viewport.width}px, clicked ${name}; inspector state: ${JSON.stringify(await page.locator('[role="tab"]').evaluateAll((els) => els.map((el) => ({ name: el.textContent?.trim(), selected: el.getAttribute("aria-selected") }))))}; page errors: ${JSON.stringify(errors)}`);
       await page.waitForFunction(
         (label) => [...document.querySelectorAll('[role="tab"]')].some(
           (el) => el.textContent?.trim() === label && el.getAttribute("aria-selected") === "true",
