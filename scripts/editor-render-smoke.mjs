@@ -24,7 +24,13 @@ try {
     for (const name of ["Style", "Advanced", "Content"]) {
       const tab = page.getByRole("tab", { name, exact: true });
       await tab.click({ timeout: 10000 });
-      assert.equal(await tab.getAttribute("aria-selected"), "true");
+      await page.waitForFunction(
+        (label) => [...document.querySelectorAll('[role="tab"]')].some(
+          (el) => el.textContent?.trim() === label && el.getAttribute("aria-selected") === "true",
+        ),
+        name,
+        { timeout: 5000 },
+      );
     }
 
     await page.waitForTimeout(200);
