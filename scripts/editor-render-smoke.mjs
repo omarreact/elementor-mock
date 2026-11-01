@@ -14,7 +14,7 @@ try {
     page.on("pageerror", (error) => errors.push(error.message));
     await page.goto("http://127.0.0.1:8080/", { waitUntil: "domcontentloaded" });
     await page.locator(".shell").waitFor({ state: "visible" });
-    await page.locator(".page-sheet").waitFor({ state: "visible" });
+    await page.locator(".is-live .page-sheet").waitFor({ state: "visible" });
     assert.equal(await page.getByText("Something went wrong", { exact: true }).count(), 0);
 
     if (viewport.width < 600) {
